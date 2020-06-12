@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+
 import java.util.List;
 
 import info.rayrojas.splash.R;
@@ -14,16 +17,21 @@ import info.rayrojas.splash.models.Contacto;
 
 public class ContactoAdaptador extends ArrayAdapter<Contacto> {
   Context context;
+  ImageLoader queue; //<-------- Añadir esta variable
+
   private class ViewHolder {
     TextView phone;
     TextView nickname;
+    NetworkImageView image; //<-------- Añadir esta variable
+
 
     private ViewHolder() {
     }
   }
-  public ContactoAdaptador(Context context, List<Contacto> items) {
+  public ContactoAdaptador(Context context, List<Contacto> items, ImageLoader _queue) {
     super(context, 0, items);
     this.context = context;
+    this.queue = _queue; //<---- Notar esa linea
   }
   public View getView(final int position, View convertView, ViewGroup parent) {
     ViewHolder holder;
@@ -34,12 +42,14 @@ public class ContactoAdaptador extends ArrayAdapter<Contacto> {
       holder = new ViewHolder();
       holder.phone = (TextView) convertView.findViewById(R.id.phone);
       holder.nickname = (TextView) convertView.findViewById(R.id.nickname);
+      holder.image = (NetworkImageView) convertView.findViewById(R.id.image);
       convertView.setTag(holder);
     } else {
       holder = (ViewHolder) convertView.getTag();
     }
     holder.phone.setText(rowItem.phone);
     holder.nickname.setText(rowItem.nickname);
+    holder.image.setImageUrl(rowItem.urlImage, this.queue);
     return convertView;
   }
 }

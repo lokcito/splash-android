@@ -17,24 +17,26 @@ import info.rayrojas.splash.helpers.QueueUtils;
 public class Contacto {
   public String phone;
   public String nickname;
-  public Contacto(String _phone, String _nickname) {
+  public  String urlImage;
+  public Contacto(String _phone, String _nickname, String _urlImage) {
     this.phone = _phone;
     this.nickname = _nickname;
+    this.urlImage = _urlImage;
   }
   public static ArrayList getCollection() {
     ArrayList<Contacto> collection = new ArrayList<>();
-    collection.add(new Contacto("981999923", "Bichito"));
-    collection.add(new Contacto("9859913923", "Plaga"));
-    collection.add(new Contacto("981914213", "Libelula"));
-    collection.add(new Contacto("981914213", "Alcachofa"));
-    collection.add(new Contacto("981999923", "Bichito"));
-    collection.add(new Contacto("9859913923", "Plaga"));
-    collection.add(new Contacto("981914213", "Libelula"));
-    collection.add(new Contacto("981914213", "Alcachofa"));
-    collection.add(new Contacto("981999923", "Bichito"));
-    collection.add(new Contacto("9859913923", "Plaga"));
-    collection.add(new Contacto("981914213", "Libelula"));
-    collection.add(new Contacto("981914213", "Alcachofa"));
+    collection.add(new Contacto("981999923", "Bichito", ""));
+    collection.add(new Contacto("9859913923", "Plaga", ""));
+    collection.add(new Contacto("981914213", "Libelula", ""));
+    collection.add(new Contacto("981914213", "Alcachofa", ""));
+    collection.add(new Contacto("981999923", "Bichito", ""));
+    collection.add(new Contacto("9859913923", "Plaga", ""));
+    collection.add(new Contacto("981914213", "Libelula", ""));
+    collection.add(new Contacto("981914213", "Alcachofa", ""));
+    collection.add(new Contacto("981999923", "Bichito", ""));
+    collection.add(new Contacto("9859913923", "Plaga", ""));
+    collection.add(new Contacto("981914213", "Libelula", ""));
+    collection.add(new Contacto("981914213", "Alcachofa", ""));
     return collection;
   }
 
@@ -56,7 +58,7 @@ public class Contacto {
                 for (int i=0; i < list.length(); i++) {
                   JSONObject o = list.getJSONObject(i);
                   contactos.add(new Contacto(o.getString("first_name"),
-                      o.getString("last_name")));
+                      o.getString("last_name"), o.getString("avatar")));
                 }
 
               } catch (JSONException e) {
