@@ -9,10 +9,14 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+
 public class ContactoDetalleActivity extends AppCompatActivity {
   QueueUtils.QueueObject queue = null;
   int contactoId;
   Contacto contactoObject = new Contacto(0, "","", "");
+  ImageLoader imageLoader;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -25,12 +29,17 @@ public class ContactoDetalleActivity extends AppCompatActivity {
     }
     /// Consumimos informacion detalla de la nube
     contactoObject.id = contactoId;
+
     queue = QueueUtils.getInstance(this.getApplicationContext());
+    imageLoader = queue.getImageLoader();
     Contacto.injectContactFromCloud(queue, contactoObject, this);
 
   }
   public void refresh() {
     TextView txtNombre = findViewById(R.id.txtNombre);
     txtNombre.setText(contactoObject.nickname);
+
+    NetworkImageView imgFoto = findViewById(R.id.imgFoto);
+    imgFoto.setImageUrl(contactoObject.urlImage, imageLoader);
   }
 }

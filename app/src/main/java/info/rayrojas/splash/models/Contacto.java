@@ -62,6 +62,7 @@ public class Contacto {
                       contacto.nickname = objecto.getString("last_name");
                       contacto.urlImage = objecto.getString("avatar");
                   } catch (JSONException e) {
+                    //llega aca cuando hay un error dentro Try
                     e.printStackTrace();
                   }
                   _interface.refresh(); // Esta función debemos implementarla
