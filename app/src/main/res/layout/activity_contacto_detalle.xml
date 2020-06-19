@@ -23,7 +23,24 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content" />
 
-    
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+      <Button
+        android:background="@drawable/btn_rounded_blue"
+        android:textColor="#fff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:id="@+id/btnComprar"
+        android:text="Comprar" />
+      <Button
+        android:textColor="#fff"
+        android:background="@drawable/btn_rounded_green"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Favoritos" />
+    </LinearLayout>
 
   </LinearLayout>
 
