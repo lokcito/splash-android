@@ -1,16 +1,21 @@
 package info.rayrojas.splash.models;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import info.rayrojas.splash.CompraActivity;
 import info.rayrojas.splash.ContactoDetalleActivity;
 import info.rayrojas.splash.MainActivity;
 import info.rayrojas.splash.helpers.QueueUtils;
@@ -43,6 +48,45 @@ public class Contacto {
     return collection;
   }
 
+  public static void postContactFromLocal(final QueueUtils.QueueObject o,
+                                          final Contacto contacto,
+                                          final CompraActivity _interface) {
+
+    String url = "http://192.168.56.101:8200/api/auth/disciplinas";
+
+    StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+        new Response.Listener<String>() {
+          @Override
+          public void onResponse(String response) {
+            //Aqui el codigo cuando llega la respuesta
+
+//            try {
+//
+//            } catch (JSONException e) {
+//              e.printStackTrace();
+//            }
+          }
+        },
+        new Response.ErrorListener() {
+          @Override
+          public void onErrorResponse(VolleyError error) {
+            // Aqui el codigo para el manejo de errores.
+
+          }
+        }){
+      @Override
+      protected Map<String,String> getParams(){
+        //Datos a enviar
+        Map<String,String> params = new HashMap<String, String>();
+        params.put("nombre",contacto.phone);
+
+        return params;
+      }
+    };
+
+    o.addToRequestQueue(stringRequest);
+
+  }
 
   public static void injectContactFromCloud(final QueueUtils.QueueObject o,
                                             final Contacto contacto,
