@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,11 +54,13 @@ public class Contacto {
                                           final CompraActivity _interface) {
 
     String url = "http://192.168.56.101:8200/api/auth/disciplinas";
-
+    url = "https://fipo.equisd.com/api/products/new.json";
     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
         new Response.Listener<String>() {
           @Override
           public void onResponse(String response) {
+            int x = 0;
+            x++;
             //Aqui el codigo cuando llega la respuesta
 
 //            try {
@@ -72,13 +75,35 @@ public class Contacto {
           public void onErrorResponse(VolleyError error) {
             // Aqui el codigo para el manejo de errores.
 
+            try {
+              String responseBody = new String(error.networkResponse.data, "utf-8");
+              JSONObject data = new JSONObject(responseBody);
+              JSONArray errors = data.getJSONArray("errors");
+              JSONObject jsonMessage = errors.getJSONObject(0);
+              String message = jsonMessage.getString("message");
+              int a = 0;
+              a++;
+            } catch (JSONException e) {
+              int a = 0;
+              a++;
+            } catch (UnsupportedEncodingException errorr) {
+              int a = 0;
+              a++;
+            }
           }
         }){
+      @Override
+      public String getBodyContentType() {
+        return "application/json";
+      }
+
       @Override
       protected Map<String,String> getParams(){
         //Datos a enviar
         Map<String,String> params = new HashMap<String, String>();
-        params.put("nombre",contacto.phone);
+        params.put("name", "Bichito Enciso");
+        params.put("precio", "1");
+        params.put("avatar", "----");
 
         return params;
       }

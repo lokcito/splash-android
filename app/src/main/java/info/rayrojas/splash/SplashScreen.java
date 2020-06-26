@@ -13,7 +13,7 @@ public class SplashScreen extends AppCompatActivity {
   @Override
   protected void onCreate(@Nullable Bundle saveInstanceState) {
     super.onCreate(saveInstanceState);
-    Intent o = new Intent(this, MainActivity.class);
+    Intent o = new Intent(this, LoginActivity.class);
     // procesos que toman 5 minutos
     // timer
     try {
